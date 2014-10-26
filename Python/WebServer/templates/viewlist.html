@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if session['username'] %}
+
+<div class="row">
+	<div class=".col-xs-12 .col-md-8">
+
+			<div class="btn-group btn-group-justified">
+				{% if perm >= 2 %} 
+				<div class="btn-group">
+				<a href="/addusers/{{ l_id }}" class="btn btn-default">	
+					<span class="glyphicon glyphicon-file"> Add users</span>
+				</a>
+
+				</div>
+				<div class="btn-group">
+				<a href="/editlist/{{ l_id }}" class="btn btn-default">	
+					<span class="glyphicon glyphicon-file"> Edit</span>
+				</a>
+				</div>
+				{% else %}
+				{% endif %}
+				<div class="btn-group">
+				<a href="{{ url_for('index') }}" class="btn btn-default">	
+					<span class="glyphicon glyphicon-circle-arrow-left"> My Lists</span>
+				</a>
+				</div>
+				<div class="btn-group">
+				<a href="{{ url_for('lists') }}" class="btn btn-default">	
+					<span class="glyphicon glyphicon-circle-arrow-left"> All Lists</span>
+				</a>
+				</div>
+				<div class="btn-group">
+				<a href="/viewlist/{{l_id}}" class="btn btn-default">	
+					<span class="glyphicon glyphicon-refresh"> Refresh</span>
+				</a>
+				</div>
+			</div>
+			
+
+	</div>
+</div>
+<div class="row">
+	<div class=".col-xs-12 .col-md-8">
+	<div class="table-responsive">
+		 <table class="table table-hover">
+		 	<thead>
+			 <tr>
+			 	 <th>Item</th>
+			 	 <th>Rank</th>
+			 	 <th>Last Picked Date</th>
+			 </tr>
+			</thead>
+			
+			{% if thelist %}
+				{% if perm == 0 %}
+					<div class="alert alert-danger">Insufficient permissions.</div>
+				{% else %}
+					<tbody> 
+						{% for e in thelist['elements'] %}
+							<tr>
+								<td>{{ e['name'] }}</td>
+								<td>{{ e['rank'] }}</td>
+								<td>{{ e['last_picked_date'] }}</td>						
+							</tr>
+						{% endfor %}
+					</tbody>
+				{% endif %}
+			{% else %}
+			{% endif %}
+			
+		</table>
+		</div>
+	</div>
+</div>
+
+{%else%}Hello, Guest{%endif%}
+	
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "layout.html" %} 
+{% block content %} 
+	{% if name=='offline' or name=='missing' %}
+		{% if name=='missing' %}
+			<div class="alert alert-danger">User does not exist</div>
+		{% else %}
+			<div class="alert alert-danger">Please Sign in to view users</div>
+		{% endif %}
+	{% else %}
+
+			
+			<div class="row">
+				<div class=".col-xs-12 .col-md-8">
+				
+					<b>{{name}}</b>	{% if form %}<span class="glyphicon glyphicon-edit"></span>{% else %}{% endif %} 
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-md-2">
+					<a href="#" class="thumbnail"> <img {% if profileimg==
+						"" %}src="{{url_for('.static', filename='img/avatar.png')}}"
+						{% else %}src="{{url_for('.static', filename=profileimage)}}"
+						{% endif %} alt="...">
+					</a>
+			
+				</div>
+			</div>
+			<div class="row">
+				<div class=".col-xs-12 .col-md-8">
+					<b>Name:</b> {{firstname}} {{lastname}}
+				</div>
+			</div>
+			<div class="row">
+				<div class=".col-xs-12 .col-md-8">
+					<b>Email:</b> {{email}}
+				</div>
+			</div>
+			<div class="row">
+				<div class=".col-xs-12 .col-md-8">
+					<b>Date joined:</b> {{joindate}}
+				</div>
+			</div>
+			
+
+	{% endif %} 
+{% endblock %}
